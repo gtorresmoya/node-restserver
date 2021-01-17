@@ -19,3 +19,13 @@ if (process.env.NODE_ENV === 'dev') {
     urlDB = process.env.MONGO_URI;
 }
 process.env.URL_DB = urlDB;
+
+// ===================
+//  JWT Seed ( Semilla )
+// ===================
+process.env.SEED = process.env.SEED || 'secret-dev';
+
+// ===================
+//  Vencimiento JWT
+// ===================
+process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
