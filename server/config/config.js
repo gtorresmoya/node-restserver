@@ -29,3 +29,8 @@ process.env.SEED = process.env.SEED || 'secret-dev';
 //  Vencimiento JWT
 // ===================
 process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
+
+// ==================
+// Google ClientID
+// ==================
+process.env.CLIENT_ID = process.env.CLIENT_ID || '971557626261-neskvaei3danp9k6fahnuo5c6m8pha2g.apps.googleusercontent.com';
