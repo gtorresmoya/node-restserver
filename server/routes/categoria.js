@@ -49,9 +49,17 @@ app.get('/categoria/:id', verificaToken, (req, res) => {
     let id = req.params.id;
     Categoria.findById(id, (err, categoriaDB) => {
         if (err) {
-            return res.status(400).json({
+            return res.status(500).json({
                 ok: false,
                 err
+            });
+        }
+        if (!categoriaDB) {
+            return res.status(400).json({
+                ok: false,
+                err: {
+                    message: 'Categoria no existe'
+                }
             });
         }
         res.json({
