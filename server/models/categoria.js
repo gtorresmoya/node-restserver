@@ -6,6 +6,7 @@ let categoriaSchema = new Schema({
         unique: true,
         required: [
             true,
+            'La descripción es necesaria'
         ]
     },
     usuario: {

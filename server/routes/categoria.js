@@ -15,8 +15,10 @@ app.get('/categoria', (req, res) => {
     desde = Number(desde);
     limitePagina = Number(limitePagina);
     Categoria.find({})
+        .sort('descripcion')
         .skip(desde)
         .limit(limitePagina)
+        .populate('usuario', 'nombre email')
         .exec((err, categorias) => {
             if (err) {
                 return res.status(400).json({
@@ -148,5 +150,34 @@ app.delete('/categoria/:id', [verificaToken, verificaAdminRole], (req, res) => {
     });
 });
 
+
+app.get('/categoria/buscar/:termino', verificaToken, (req, res) => {
+    let termino = req.params.termino;
+    let regex = new RegExp(termino, 'i');
+
+    Categoria.find({ descripcion: regex })
+        .populate('categoria', 'descripcion')
+        .exec((err, categoriaDB) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    err
+                });
+            }
+            if (!categoriaBorrado) {
+                return res.status(400).json({
+                    ok: false,
+                    err: {
+                        message: 'Categoria no encontrada'
+                    }
+                });
+            }
+
+            res.json({
+                ok: true,
+                categoria: categoriaDB
+            });
+        });
+});
 
 module.exports = app;
