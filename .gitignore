@@ -1,4 +1,4 @@
 node_modules/
-
+.env
 .jshintrc
 .DS_Store
