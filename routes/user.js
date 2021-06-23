@@ -35,12 +35,12 @@ route.delete('/:id', [
     validarJWT,
     //esAdminRole,
     tieneRol('ADMIN_ROLE','USER_ROLE'),
-    check('id', 'No es un Id válidio').isMongoId(),
+    check('id', 'No es un Id válido').isMongoId(),
     check('id').custom(validateUserById),
     validarCampos,
 ], eliminaUsuario);
 route.put('/:id',[
-    check('id', 'No es un Id válidio').isMongoId(),
+    check('id', 'No es un Id válido').isMongoId(),
     check('id').custom(validateUserById),
     check('role').custom(validateExistsRole),
     validarCampos,

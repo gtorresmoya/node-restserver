@@ -1,13 +1,13 @@
 const { response, request } = require('express');
 const jwt = require('jsonwebtoken');
 
-const Usuario = require('../models/usuario');
+const { Usuario } = require('../models');
 
 const validarJWT = async(req = request, res = response, next) => {
     const token = req.header('x-token');
     if(!token){
         return res.status(400).json({
-            msg: 'NO hay token en la perición'
+            msg: 'No hay token en la petición'
         });
     }
 
