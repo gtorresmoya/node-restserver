@@ -35,10 +35,19 @@ const validateProductoById = async(id) => {
     }
 };
 
+const coleccionesPermitidas = async(coleccion = '', colecciones = []) => {
+    const incluida = colecciones.includes(coleccion);
+    if(!incluida){
+        throw new Error(`El nombre de la colección '${coleccion}' no es permitida dentro de: [${colecciones}]`);
+    }
+    return true;
+};
+
 module.exports = {
     validateExistsRole,
     validateExistsEmail,
     validateUserById,
     validateCategoriaById,
     validateProductoById,
+    coleccionesPermitidas,
 };
