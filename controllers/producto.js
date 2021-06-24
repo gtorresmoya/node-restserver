@@ -2,8 +2,9 @@ const { response, request } = require('express');
 const { Producto } = require('../models');
 
 const crearProducto = async(req = request, res = response) => {
-    let { estado, usuario, ...body } =  req.body;
-    const productoDB = await Producto.findOne({nombre});
+    let { estado, usuario, nombre, ...body } =  req.body;
+    const nombreProducto = nombre.toUpperCase();
+    const productoDB = await Producto.findOne({ nombre:nombreProducto });
  
     //Verificar si el Producto ya existe
     if(productoDB){
@@ -14,7 +15,7 @@ const crearProducto = async(req = request, res = response) => {
 
     //Generar la Data
     const data = {
-        nombre: body.nombre.toUpperCase(),
+        nombre: nombreProducto,
         usuario: req.usuario._id,
         ...body
     };
