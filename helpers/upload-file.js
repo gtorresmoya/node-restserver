@@ -1,4 +1,6 @@
 const path = require('path');
+const fs = require('fs');
+
 const { v4 : uuidv4 } = require('uuid');
 
 const subirArchivo = (files, extensionValidas = ['jpeg', 'jpg', 'png', 'bmp', 'gif'], carpeta = '')=>{
@@ -13,12 +15,18 @@ const subirArchivo = (files, extensionValidas = ['jpeg', 'jpg', 'png', 'bmp', 'g
     
         const nomTempArchivo = `${uuidv4()}.${extension}`;
         const uploadPath = path.join(__dirname, '../uploads/', carpeta, nomTempArchivo);
-    
+
         archivo.mv(uploadPath, (err) => {
             if (err) {
                 return reject(err);
             }
-            return resolve(nomTempArchivo);
+
+            let buff = fs.readFileSync(uploadPath);
+            //Borrar imagen temporal del servidor
+            if(fs.existsSync(uploadPath)){
+                fs.unlinkSync(uploadPath);
+            }
+            return resolve(buff.toString('base64'));
         });
     });
 };
